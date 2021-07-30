@@ -5,8 +5,10 @@ import { View, Text, StyleSheet} from 'react-native';
 export default class Chat extends React.Component {
 
   render() {
+    // Brings params over from home screen name and background color selected
     let { name, backgroundColor } = this.props.route.params;
 
+    // Sets the entered name as the title in the Chat screen
     this.props.navigation.setOptions({ title: name });
 
     return (
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  // Brings over selected background color in home screen
   bgcolor: (backgroundColor) => ({
     backgroundColor: backgroundColor,
   }),

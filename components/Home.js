@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
   },
   titleWrapper: {
-    flex: 0.5,
+    flex: 0.3,
     justifyContent: 'space-evenly',
   },
   title: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   namefield: {
     backgroundColor: '#fff',
     width: '80%',
-    height: 50,
+    height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 3,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffa500',
     borderWidth: 1,
     width: '88%',
-    flex: 0.5,
+    flex: 0.7,
     alignItems: 'center',
     marginBottom: '8%',
     flexDirection: 'column',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '80%',
-    height: 50,
+    height: 40,
     backgroundColor: '#757083',
     color: '#FFFFFF',
     alignItems: 'center',
