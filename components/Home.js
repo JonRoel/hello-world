@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     super(props);
     this.state ={
       name: '',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#606670',
     }
   }
 
@@ -37,9 +37,10 @@ export default class Home extends React.Component {
                 key={selectedColor}
                 style={[
                   styles.colorOptions(selectedColor),
+                  setColor === selectedColor ? styles.border : null,
                 ]}
                 activeOpacity={0.5}
-                onPress={() => this.setState({ backgroundColor: 'selectedColor' })}
+                onPress={() => this.setState({ backgroundColor: selectedColor })}
               />
             ))}
           </View>
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   }),
   border: {
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: '#ffa500',
   },
   button: {
     width: '80%',

@@ -35,22 +35,6 @@ export default class HelloWorld extends Component {
             name="Chat"
             component={Chat} />
         </Stack.Navigator>
-      
-        {/* <View style={styles.container}>
-          <TextInput 
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
-            placeholder='Type here ...'
-          />
-          <Text>You wrote: {this.state.text}</Text>
-          <Button
-            onPress={() => {
-              this.alertMyText({text: this.state.text});
-            }}
-            title="Press Me"
-            />
-        </View> */}
       </NavigationContainer>
     );
   }
