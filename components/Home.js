@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Set the Background Image
@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     super(props);
     this.state ={
       name: '',
-      backgroundColor: '#606670',
+      backgroundColor: '#A4CE9E',
     }
   }
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
   },
   titleWrapper: {
-    flex: 0.3,
+    flex: 0.4,
     justifyContent: 'space-evenly',
   },
   title: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffa500',
     borderWidth: 1,
     width: '88%',
-    flex: 0.7,
+    flex: 0.6,
     alignItems: 'center',
     marginBottom: '8%',
     flexDirection: 'column',
