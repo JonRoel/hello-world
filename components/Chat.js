@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import { GiftedChat, Bubble, SystemMessage } from 'react-native-gifted-chat'
 
 // The applications main chat component that renders the UI
 export default class Chat extends React.Component {
@@ -14,47 +14,94 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.setState({
+      // these are sample messages
       messages: [
+        // System Message that displays welcome back
+        {
+          _id: 2,
+          text: `Welcome back ${this.props.route.params.name}`,
+          createdAt: new Date(),
+          system: true,
+        },
+        // Received sample message #1
         {
           _id: 1,
-          text: 'Hey there, buddy!',
+          text: 'Hows it going?',
           createdAt: new Date(),
-          isTyping: true,
-          infiniteScroll: true,
-          loadEarlier: true,
           user: {
             _id: 2,
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
           },
         },
+        //Received Sample message #2
         {
-          _id: 2,
-          text: 'Welcome back fancy pants',
-          createdAt: new Date(),
-          system: true,
+          _id: 3,
+            text: 'Hey there buddy!',
+            createdAt: new Date(),
+            user: {
+              _id: 2,
+              name: 'React Native',
+              avatar: 'https://placeimg.com/140/140/any',
+          }
         }
       ],
     })
   }
 
+  // Funciton to send messages
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
   }
 
+  // Sets System Message color
+  renderSystemMessage(props) {
+    let backgroundColor = this.props.route.params.backgroundColor;
+    if (backgroundColor !== '#FFFFFF') {
+      return (
+        <SystemMessage
+          {...props}
+          textStyle={{ color: '#FFFFFF' }}
+          timeTextStyle={{ color: '#FFFFFF' }}
+        />
+      );
+    }
+  }
+
+  // Sets message bubble color
   renderBubble(props) {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: '#000'
-          },
-        }}
-      />
-    );
+    let backgroundColor = this.props.route.params.backgroundColor;
+    if (backgroundColor === '#FFFFFF') {
+      return (
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            right: { backgroundColor: '#2d63d3' },
+            left: { backgroundColor: '#7e7e7e' }
+          }}
+          textProps={{
+            style: { color: 'white' }
+          }}
+          timeTextStyle={{ 
+            right: { color: '#f0f0f0' },
+            left: { color: '#f0f0f0' }
+          }}
+        />
+      )
+    } else {
+      return (
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            right: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }}
+        />
+      )
+    }
   }
 
   render() {
@@ -69,8 +116,12 @@ export default class Chat extends React.Component {
         <View style={styles.chatArea}>
           <GiftedChat
             messages={this.state.messages}
+            renderSystemMessage={this.renderSystemMessage.bind(this)}
             renderBubble={this.renderBubble.bind(this)}
             onSend={messages => this.onSend(messages)}
+            isTyping={true}
+            infiniteScroll={true}
+            loadEarlier={true}
             user={{
               _id: 1,
             }}

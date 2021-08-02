@@ -3,15 +3,15 @@ import { View, Text, Button, TextInput, ImageBackground, StyleSheet, TouchableOp
 
 // Set the Background Image
 const background = require('../assets/Background-Image.png');
-// Background color options - Green, Blue, Orange, Gray, White
-const colors = ['#A4CE9E', '#6f8aa8', '#d3af95', '#606670', '#FFFFFF'];
+// Background color options - Green, Blue, Purple, Gray, White
+const colors = ['#408337', '#3a5d84', '#78519d', '#606670', '#FFFFFF'];
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
       name: '',
-      backgroundColor: '#A4CE9E',
+      backgroundColor: '#408337',
     }
   }
 
@@ -34,6 +34,11 @@ export default class Home extends React.Component {
             <View style={styles.colorsMenu}>
             {colors.map((selectedColor) => (
               <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Select Background Color"
+              accessibilityHint="Sets your chat screens background color."
+              accessibilityRole="button"
+
                 key={selectedColor}
                 style={[
                   styles.colorOptions(selectedColor),
@@ -45,6 +50,10 @@ export default class Home extends React.Component {
             ))}
           </View>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Go to chat"
+              accessibilityHint="Takes you to the chat screen."
+              accessibilityRole="button"
               style={styles.button}  
               onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, backgroundColor: this.state.backgroundColor })}>
                 <Text style={styles.text}>
