@@ -109,7 +109,7 @@ export default class Chat extends React.Component {
     let { name, backgroundColor } = this.props.route.params;
 
     // Sets the entered name as the title in the Chat screen
-    this.props.navigation.setOptions({ title: name });
+    //this.props.navigation.setOptions({ title: name });
 
     return (
       <View style={[styles.bgcolor(backgroundColor), styles.container]}>

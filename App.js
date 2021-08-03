@@ -33,7 +33,8 @@ export default class HelloWorld extends Component {
             component={Home} />
           <Stack.Screen
             name="Chat"
-            component={Chat} />
+            component={Chat}
+            options={({ route }) => ({title: route.params.name })} />
         </Stack.Navigator>
       </NavigationContainer>
     );
