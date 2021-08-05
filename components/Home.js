@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text,TextInput, ImageBackground, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
 // Set the Background Image
 const background = require('../assets/Background-Image.png');
@@ -14,6 +14,17 @@ export default class Home extends React.Component {
       backgroundColor: '#408337',
     }
   }
+
+  // Check for username
+  onGoToChat = (name, backgroundColor) => {
+    if(name == '') {
+      return Alert.alert('Please enter your name.');
+    }
+    this.props.navigation.navigate('Chat', {
+      name: `${name}`,
+      backgroundColor: `${backgroundColor}`,
+    });
+  };
 
   render() {
     const setColor = this.state.backgroundColor;
@@ -54,8 +65,8 @@ export default class Home extends React.Component {
               accessibilityLabel="Go to chat"
               accessibilityHint="Takes you to the chat screen."
               accessibilityRole="button"
-              style={styles.button}  
-              onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, backgroundColor: this.state.backgroundColor })}>
+              style={styles.button}
+              onPress={() => this.onGoToChat(this.state.name, this.state.backgroundColor)}>  
                 <Text style={styles.text}>
                   GO TO CHAT
                 </Text>

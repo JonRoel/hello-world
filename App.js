@@ -7,21 +7,17 @@ import 'react-native-gesture-handler';
 import Home from './components/Home';
 import Chat from './components/Chat';
 
-
 const Stack = createStackNavigator();
 
 export default class HelloWorld extends Component {
   constructor(props) {
     super(props);
-    this.state ={
+    this.state = {
       text: '',
+      lists: [],
     }
   }
-
-  alertMyText (input = []) {
-    Alert.alert(input.text);
-  }
-
+  
   render() {
     return (
       <NavigationContainer>
@@ -34,7 +30,7 @@ export default class HelloWorld extends Component {
           <Stack.Screen
             name="Chat"
             component={Chat}
-            options={({ route }) => ({title: route.params.name })} />
+            options={({ route }) => ({title: route.params.name })} /> 
         </Stack.Navigator>
       </NavigationContainer>
     );
