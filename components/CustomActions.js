@@ -4,10 +4,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import firebase from 'firebase';
-import 'firebase/firestore';
+const firebase = require('firebase');
+require('firebase/firestore');
 
-export class CustomActions extends React.Component {
+
+export default class CustomActions extends React.Component {
 
   onActionPress = () => {
     const options = [
@@ -44,7 +45,7 @@ export class CustomActions extends React.Component {
     try {
       if (status === 'granted') {
         const result = await ImagePicker.launchImageLibraryAsync({
-          meiaTypes: ImagePicker.MediaTypeOptions.Images,
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
         }).catch((error) => console.log(error));
         if(!result.cancelled) {
           const imageUrl = await this.uploadImageFetch(result.url);
@@ -71,7 +72,7 @@ export class CustomActions extends React.Component {
       }
     }
   } catch (error) {
-    console.log(eror.message);
+    console.log(error.message);
   }
 };
 
@@ -129,7 +130,8 @@ uploadImageFetch = async (uri) => {
 
   render() {
     return (
-      <TouchableOpacity accessible={true}
+      <TouchableOpacity 
+        accessible={true}
         accessibilityLabel="More options"
         accessibilityHint="Let’s you choose to send an image, take a new picture or send your location."
         style={[styles.container]} 

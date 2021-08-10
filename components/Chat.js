@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble, SystemMessage, InputToolbar } from 'react-native-gifted-chat'
 
 //Custom Chat Features (sharing images and location)
-import { CustomActions } from './CustomActions';
+import CustomActions from './CustomActions';
 
 // Mapview Component
 import MapView from 'react-native-maps';
@@ -92,6 +92,7 @@ export default class Chat extends React.Component {
 
   componentWillUnmount() {
     this.authUnsubscribe();
+    this.authUnsubscribe();
   }
 
   //Loads messages from AsyncStorage
@@ -166,13 +167,13 @@ export default class Chat extends React.Component {
       messages.push({
         _id: data._id,
         createdAt: data.createdAt.toDate(),
-        text: data.text,
+        text: data.text || '',
         user: {
           _id: data.user._id,
           name: data.user.name,
         },
-        image: data.image,
-        location: data.location,
+        image: data.image || null,
+        location: data.location || null,
       });
     });
     this.setState({ 
@@ -195,16 +196,25 @@ export default class Chat extends React.Component {
   }
 
   // If offline, dont render the input toolbar
-  renderInputToolbar(props) {  
-    if (this.state.isConnected === false) {
+  // renderInputToolbar(props) {  
+  //   if (this.state.isConnected === false) {
+  //   } else {
+  //     return(
+  //       <InputToolbar
+  //       {...props}
+  //       />
+  //     );
+  //   }
+  // }
+
+  renderInputToolbar = (props) => {
+    console.log("renderInputToolbar --> props", props.isConnected);
+    if (props.isConnected === false) {
+      return <InputToolbar {...props} />
     } else {
-      return(
-        <InputToolbar
-        {...props}
-        />
-      );
+      return <InputToolbar {...props} />;
     }
-  }
+  };
 
   // Sets message bubble color
   renderBubble(props) {
@@ -240,27 +250,23 @@ export default class Chat extends React.Component {
     }
   }
 
-  renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
-  };
+  renderCustomActions = (props) => 
+    <CustomActions {...props} />;
 
   // Renders Map view
-  renderCustomView (props) {
-    const { currentMessage} = props;
+  renderCustomView(props) {
+    const { currentMessage } = props;
     if (currentMessage.location) {
       return (
-          <MapView
-            style={{width: 150,
-              height: 100,
-              borderRadius: 13,
-              margin: 3}}
-            region={{
-              latitude: currentMessage.location.latitude,
-              longitude: currentMessage.location.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 8 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       );
     }
     return null;
@@ -278,7 +284,8 @@ export default class Chat extends React.Component {
             renderSystemMessage={this.renderSystemMessage.bind(this)}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
             renderBubble={this.renderBubble.bind(this)}
-            renderActions={this.renderCustomActions} 
+            renderActions={this.renderCustomActions}
+            renderCustomView={this.renderCustomView} 
             onSend={messages => this.onSend(messages)}
             isTyping={true}
             user={this.state.user} 
