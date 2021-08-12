@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import * as Permissions from 'expo-permissions';
+//import * as Permissions from 'expo-permissions'; // depricated but seems to still work
+import { Camera } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 const firebase = require('firebase');
@@ -41,15 +43,15 @@ export default class CustomActions extends React.Component {
 
   // Select an image from image library
   imagePicker = async () => {
-    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    const { status } = await MediaLibrary.requestPermissionsAsync();//Permissions.askAsync(Permissions.MEDIA_LIBRARY);
     try {
       if (status === 'granted') {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
         }).catch((error) => console.log(error));
         if(!result.cancelled) {
-          const imageUrl = await this.uploadImageFetch(result.url);
-          this.props.onSend({ image: imageUrl });
+          const imageUrl = await this.uploadImageFetch(result.uri);
+          this.props.onSend({ image: imageUrl, text: '' });
         }
       }
     } catch (error) {
@@ -59,16 +61,16 @@ export default class CustomActions extends React.Component {
 
   // Take a new photo with the camera
   takePhoto = async () => {
-  const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.MEDIA_LIBRARY);
+  const { status } = await Camera.requestPermissionsAsync(); //await Permissions.askAsync(Permissions.CAMERA, Permissions.MEDIA_LIBRARY);
   try {
     if (status === 'granted') {
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All // All allows image and video
+        mediaTypes: ImagePicker.MediaTypeOptions.Images
       }).catch((error) => console.log(error));
 
       if (!ImagePicker.getPendingResultAsync.cancelled) {
         const imageUrl = await this.uploadImageFetch(result.uri);
-        this.props.onSend({ image: imageURL });
+        this.props.onSend({ image: imageUrl, text: '' });
       }
     }
   } catch (error) {
@@ -79,7 +81,7 @@ export default class CustomActions extends React.Component {
 //Get Location for location sharing
 getLocation = async () => {
   try {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
+    const { status } = await Location.requestForegroundPermissionsAsync(); //await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
     if (status === "granted") {
       const result = await Location.getCurrentPositionAsync(
         {}

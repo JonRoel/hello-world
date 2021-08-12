@@ -195,26 +195,17 @@ export default class Chat extends React.Component {
     }
   }
 
-  // If offline, dont render the input toolbar
-  // renderInputToolbar(props) {  
-  //   if (this.state.isConnected === false) {
-  //   } else {
-  //     return(
-  //       <InputToolbar
-  //       {...props}
-  //       />
-  //     );
-  //   }
-  // }
-
-  renderInputToolbar = (props) => {
-    console.log("renderInputToolbar --> props", props.isConnected);
-    if (props.isConnected === false) {
-      return <InputToolbar {...props} />
+  //If offline, dont render the input toolbar
+  renderInputToolbar(props) {  
+    if (this.state.isConnected === false) {
     } else {
-      return <InputToolbar {...props} />;
+      return(
+        <InputToolbar
+        {...props}
+        />
+      );
     }
-  };
+  }
 
   // Sets message bubble color
   renderBubble(props) {
