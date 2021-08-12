@@ -32,11 +32,12 @@
 <h4>Run the App</h4>
 <p>To get the app running use:</p>
 <code>expo start</code>
+<p><b>NOTE:</b> You will need to setup an account with <a href="https://expo.dev/">Expo</a> before you can view your app and get it up and running.</p>
 
 <h4>Viewing the application</h4>
 <p>You can run this application on your mobile device by downloading the Expo app from your app store.</p>
 <p>Alternatively you can run IOS Simulator through XCode or Android Studio.</p>
-<p><b>NOTE:</b> The application as is will be connected to my firebase database, you will need to setup your own firebase database and add your own database credentials in /components/chat.js, under the "Firebase Config Details", then allow anonymous authorization with your Database.</p>
+<p><b>NOTE:</b> You will need to setup your own <a href="https://firebase.google.com/">firebase database</a>, you will need to setup your own firebase database and add your own database credentials in /components/chat.js, under the "Firebase Config Details", then allow anonymous authorization with your Database.</p>
 
 <h3>SCREENSHOTS</h3>
 
